@@ -34,6 +34,11 @@ let make = _children => {
   },
 
   render: _self => {
-    <div />
+    <div>
+      <AppHeader />
+      <div>
+        {ReasonReact.string("Content goes here...")}
+      </div>
+    </div>
   }
 };
