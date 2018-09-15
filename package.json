@@ -33,6 +33,7 @@
     "stylus": "^0.54.5"
   },
   "dependencies": {
+    "bs-abstract": "^0.16.0",
     "reason-react": "^0.5.3"
   }
 }

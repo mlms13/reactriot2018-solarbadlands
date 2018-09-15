@@ -1,15 +1,13 @@
-module Repository = Changelog_Repository;
-
 type state =
-  | ConfigRepository
-  | ConfigParser(Repository.t)
-  | ConfigRange(Repository.t, /* TODO: Parser.t */)
+  | ChooseRepository
+  | ConfigParser(RepoData.t)
+  | ConfigRange(RepoData.t, /* TODO: Parser.t */)
   /* Possibly TODO, intermediate state after receiving commits, while parsing */
-  | ShowChangelog(Repository.t /* TODO: Parser, Range, RemoteData of Commits */)
+  | ShowChangelog(RepoData.t /* TODO: Parser, Range, RemoteData of Commits */)
   ;
 
 type action =
-  | SetRepository(Repository.t)
+  | SetRepository(RepoData.t)
   | SetParseRules
   | SetCommitRange
   | SetCommits /* TODO: RemoteData of commits */
@@ -20,7 +18,7 @@ let component = ReasonReact.reducerComponent("Changelog");
 let make = _children => {
   ...component,
 
-  initialState: () => ConfigRepository,
+  initialState: () => ChooseRepository,
 
   reducer: (action, state) => switch (action, state) {
   | (SetRepository(repo), _) => Update(ConfigParser(repo))
@@ -33,12 +31,17 @@ let make = _children => {
   | _ => NoUpdate
   },
 
-  render: _self => {
+  render: ({ state }) => {
     <div>
       <AppHeader />
-      <div>
-        {ReasonReact.string("Content goes here...")}
-      </div>
+      {
+        switch state {
+        | ChooseRepository =>
+          <Repository />
+
+        | _ => ReasonReact.string("Unfinished State")
+        }
+      }
     </div>
   }
 };
