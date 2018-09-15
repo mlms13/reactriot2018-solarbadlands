@@ -1,0 +1,32 @@
+{
+  "name": "friendly-changelog",
+  "version": "0.1.0",
+  "description": "Generate easy-to-understand changelogs for git repositories",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hackbit/reactriot2018-solarbadlands.git"
+  },
+  "keywords": [
+    "git",
+    "changelog",
+    "diff",
+    "commit",
+    "history"
+  ],
+  "author": "mlms13",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hackbit/reactriot2018-solarbadlands/issues"
+  },
+  "homepage": "https://github.com/Hackbit/reactriot2018-solarbadlands#readme",
+  "devDependencies": {
+    "bs-platform": "^4.0.5"
+  },
+  "dependencies": {
+    "reason-react": "^0.5.3"
+  }
+}
