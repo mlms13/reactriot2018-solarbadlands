@@ -11,7 +11,7 @@ type action =
 
 let component = ReasonReact.reducerComponent("SetRepository");
 
-let make = _children => {
+let make = (~onSubmit, _children) => {
   ...component,
 
   initialState: () => { service: Github, user: "atom", repository: "atom" },
@@ -24,7 +24,7 @@ let make = _children => {
   },
 
   render: self => {
-    let { service, user, repository } = self.state;
+    let { service, user, repository } as state = self.state;
     let (/) = Url.(//);
     let baseUrl = RepoSource.url(service);
     let url = baseUrl / user / repository;
@@ -32,6 +32,11 @@ let make = _children => {
     <div className="changelog-set-repository">
       <h2 className="section-title is-active">{ReasonReact.string("1. Choose a Repository")}</h2>
       <span>{ReasonReact.string(url |> Url.toString)}</span>
+      {
+        (user != "" && repository != "") ?
+        <button onClick={_ => onSubmit(state) }>{ReasonReact.string("Next")}</button> :
+        ReasonReact.null
+      }
     </div>
   }
 };

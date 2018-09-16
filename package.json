@@ -34,6 +34,9 @@
   },
   "dependencies": {
     "bs-abstract": "^0.16.0",
+    "bs-decode": "mlms13/bs-decode",
+    "bs-fetch": "^0.3.0",
+    "reason-future": "^2.3.1",
     "reason-react": "^0.5.3"
   }
 }

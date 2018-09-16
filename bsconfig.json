@@ -4,6 +4,9 @@
   "reason": {"react-jsx" : 2},
   "bs-dependencies": [
     "bs-abstract",
+    "bs-decode",
+    "bs-fetch",
+    "reason-future",
     "reason-react"
   ],
   "bs-dev-dependencies": [
