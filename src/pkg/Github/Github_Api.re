@@ -10,11 +10,11 @@ let mapErr = (fn, r) => switch r {
 | Belt.Result.Error(x) => Belt.Result.Error(fn(x))
 };
 
-let mapDecode = (decode, v) =>
-  decode(v) |> mapErr(x => ParseError(x));
+let mapBind = (v, fn) =>
+  v |. Future.map(result => Belt.Result.flatMap(result, fn));
 
-let decodeInner = (fut, decoder) =>
-  fut |. Future.map(a => Belt.Result.flatMap(a, mapDecode(decoder)));
+let decodeInner = (fut, decode) =>
+  fut |. mapBind(v => decode(v) |> mapErr(x => ParseError(x)));
 
 type response('a) = Future.t(Belt.Result.t('a, error));
 
@@ -37,6 +37,10 @@ let getJSON = url =>
   make(url) |. Future.flatMapOk(res =>
     Fetch.Response.json(res) |. FutureJs.fromPromise(_ => ResponseError)
   );
+
+let getUser = username =>
+  getJSON(baseUrl // "users" // username)
+    |. decodeInner(Github_User.decode);
 
 let getRepository = (user, repo) =>
   getJSON(baseUrl // "repos" // user // repo)
